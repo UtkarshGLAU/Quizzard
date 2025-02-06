@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import api from '../config/api';
 function Home() {
     const [quizzes, setQuizzes] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/api/quizzes')
-            .then(res => res.json())
-            .then(data => setQuizzes(data));
+        const fetchQuizzes = async () => {
+            try {
+                const response = await api.get('/api/quizzes');
+                setQuizzes(response.data);
+            } catch (error) {
+                console.error('Error fetching quizzes:', error);
+            }
+        };
+        fetchQuizzes();
     }, []);
     return (
         <div>

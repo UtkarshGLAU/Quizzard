@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const quizSchema = new mongoose.Schema({
     title: String,
     questions: [
@@ -9,3 +10,7 @@ const quizSchema = new mongoose.Schema({
         }
     ]
 });
+
+const Quiz = mongoose.model('Quiz', quizSchema); // ✅ Define and Export Model
+
+module.exports = Quiz; // ✅ Ensure Export
