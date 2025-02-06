@@ -1,0 +1,17 @@
+{
+  "name": "quizmaker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "start": "cd backend && node server.js",
+  "client": "cd frontend && npm run dev",
+  "dev": "concurrently \"npm run start\" \"npm run client\""
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
