@@ -12,6 +12,9 @@ const Dashboard = () => {
                 const apiResponse = await fetch(import.meta.env.VITE_API_URL+'/auth/get-user', {
                     method: 'GET',
                     credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 })
 
                 if (!apiResponse.ok) {
