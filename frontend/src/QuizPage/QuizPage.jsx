@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchQuizById } from "../api/quizzesApi";
+import { fetchQuizById } from "../api/QuizzesApi";
 import "./QuizPage.css";
 import Header from "../Header/Header";
 import { useNavigate } from "react-router-dom";
