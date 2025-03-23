@@ -12,10 +12,15 @@ const app = express()
 const PORT = process.env.PORT
 app.use(express.json())
 app.use(cookieParser())
+const cors = require("cors");
+
 app.use(cors({
-    origin: "*",
-    credentials: true
-}))
+    origin: ["https://quizzard-frontend.vercel.app", "http://localhost:5173"], // Allow both production and local frontend
+    credentials: true,  // Allow cookies, authorization headers, etc.
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+}));
+
 
 app.use('/api/auth', AuthRoute)
 app.use("/api/quizzes", quizRoutes);
