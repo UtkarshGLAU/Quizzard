@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchQuizById } from "../api/QuizzesApi";
 import "./QuizPage.css";
 import Header from "../Header/Header";
-import { useNavigate } from "react-router-dom";
 
 function QuizPage() {
     const { id } = useParams();
@@ -13,6 +12,7 @@ function QuizPage() {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [score, setScore] = useState(0);
     const [quizCompleted, setQuizCompleted] = useState(false);
+    const [secondsLeft, setSecondsLeft] = useState(10);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +23,24 @@ function QuizPage() {
         getQuiz();
     }, [id]);
 
-    if (!quiz) return <h2>Loading...</h2>;
+    // Timer countdown
+    useEffect(() => {
+        let timer;
+        if (quizStarted && !quizCompleted) {
+            timer = setInterval(() => {
+                setSecondsLeft((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(timer);
+                        setQuizCompleted(true); // Auto-submit
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+        }
+
+        return () => clearInterval(timer); // Cleanup on unmount or stop
+    }, [quizStarted, quizCompleted]);
 
     const handleAnswerClick = (answer) => {
         setSelectedAnswer(answer);
@@ -42,11 +59,18 @@ function QuizPage() {
         }
     };
 
+    // Format seconds to mm:ss
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
+        const secs = (seconds % 60).toString().padStart(2, "0");
+        return `${mins}:${secs}`;
+    };
+
+    if (!quiz) return <h2>Loading...</h2>;
+
     return (
         <>
-
-
-            {quizCompleted ? <Header /> : <></>}
+            {quizCompleted ? <Header /> : null}
             <div className="quiz-page">
                 {!quizStarted ? (
                     <>
@@ -61,10 +85,13 @@ function QuizPage() {
                                 <h2>Quiz Completed!</h2>
                                 <p>Your Score: {score} / {quiz.questions.length}</p>
                                 <br />
-                                <button className="quiz-page-btn" onClick={()=>navigate('/dashboard')}>DashBoard</button>
+                                <button className="quiz-page-btn" onClick={() => navigate('/dashboard')}>DashBoard</button>
                             </div>
                         ) : (
                             <div className="quiz-page-question-section">
+                                <div className="quiz-page-timer">
+                                    ⏳ Time Left: <strong>{formatTime(secondsLeft)}</strong>
+                                </div>
                                 <h2>Question {currentQuestionIndex + 1}:</h2>
                                 <p>{quiz.questions[currentQuestionIndex].question}</p>
 
@@ -72,7 +99,7 @@ function QuizPage() {
                                     {quiz.questions[currentQuestionIndex].options.map((option, index) => (
                                         <button
                                             key={index}
-                                            className={selectedAnswer === option ? "quiz-page-selected quiz-page-btn" : "quiz-page-btn"} 
+                                            className={selectedAnswer === option ? "quiz-page-selected quiz-page-btn" : "quiz-page-btn"}
                                             onClick={() => handleAnswerClick(option)}
                                         >
                                             {option}
