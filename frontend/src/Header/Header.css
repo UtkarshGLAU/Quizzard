@@ -1,106 +1,105 @@
 
 .header {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    /* position: relative; */
-    width: 100vw;
-    position: fixed;
-    top: 0;
-  }
-  
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* max-width: 1100px; */
-  }
-  
-  .header-logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* position: relative; */
+  width: 100vw;
+  position: fixed;
+  top: 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* max-width: 1100px; */
+}
+
+.header-logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.header-nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.header-nav-links button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 50px;
+}
+
+.header-nav-links button:hover {
+  text-decoration: underline;
+}
+
+.header-login-btn {
+  background-color: white;
+  color: #007bff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.header-login-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* Mobile menu button */
+.header-menu-btn {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Mobile Menu */
+.header-mobile-menu {
+  display: none;
+  flex-direction: column;
+  background-color: #0056b3;
+  padding: 15px;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  left: 0;
+}
+
+.header-mobile-menu button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.header-mobile-menu button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .header-nav-links {
-    display: flex;
-    gap: 20px;
+    display: none;
   }
-  
-  .header-nav-links button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 50px;
-  }
-  
-  .header-nav-links button:hover {
-    text-decoration: underline;
-  }
-  
-  .header-login-btn {
-    background-color: white;
-    color: #007bff;
-    padding: 8px 15px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .header-login-btn:hover {
-    background-color: #f0f0f0;
-  }
-  
-  /* Mobile menu button */
   .header-menu-btn {
-    display: none;
-    font-size: 1.8rem;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
+    display: block;
   }
-  
-  /* Mobile Menu */
   .header-mobile-menu {
-    display: none;
-    flex-direction: column;
-    background-color: #0056b3;
-    padding: 15px;
-    position: absolute;
-    top: 60px;
-    width: 100%;
-    left: 0;
+    display: flex;
   }
-  
-  .header-mobile-menu button {
-    background: none;
-    border: none;
-    color: white;
-    padding: 10px;
-    font-size: 1rem;
-    text-align: left;
-    cursor: pointer;
-  }
-  
-  .header-mobile-menu button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .header-nav-links {
-      display: none;
-    }
-    .header-menu-btn {
-      display: block;
-    }
-    .header-mobile-menu {
-      display: flex;
-    }
-  }
-  
+}
