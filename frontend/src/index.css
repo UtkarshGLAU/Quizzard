@@ -16,3 +16,199 @@ body #root{
     height: 100vh;
     width: 100vw;
 }
+/* App.css — Dark Mode + Animations for Quizzard */
+
+:root {
+  --bg: #111;
+  --card-bg: #1e1e1e;
+  --accent: #00bcd4;
+  --text: #f5f5f5;
+  --muted: #aaa;
+  --radius: 12px;
+  --transition: 0.3s ease;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover {
+  color: #03e9f4;
+}
+
+/* Navbar.jsx */
+.navbar {
+  background: #1a1a1a;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  animation: slideDown 0.8s ease-in-out;
+}
+
+.navbar a {
+  margin-left: 1.5rem;
+  font-weight: bold;
+}
+
+/* Home.jsx */
+.home-container {
+  padding: 2rem;
+  animation: fadeIn 1s ease-in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* CreateQuiz.jsx & JoinQuiz.jsx */
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: fadeInUp 0.8s ease;
+}
+
+.form-container h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+input,
+select {
+  background: #2c2c2c;
+  color: var(--text);
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #444;
+  border-radius: var(--radius);
+  width: 100%;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  outline: none;
+}
+
+button {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  border-radius: var(--radius);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+/* QuizPage.jsx */
+.quiz-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.question-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 1rem 0;
+  animation: fadeInUp 0.7s ease;
+}
+
+.option-button {
+  background: #2a2a2a;
+  border: 1px solid #333;
+  color: var(--text);
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border-radius: var(--radius);
+  width: 100%;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.option-button:hover {
+  background: var(--accent);
+  color: #000;
+  transform: translateX(5px);
+}
+
+/* Results.jsx */
+.results-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  animation: fadeIn 1s ease;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-container,
+  .question-card,
+  .results-card {
+    padding: 1rem;
+  }
+}
