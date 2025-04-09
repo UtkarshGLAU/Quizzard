@@ -18,8 +18,9 @@ export const login = async (req, res) => {
 
         res.cookie("access_token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "Strict",
+            secure: true, // ✅ Always true in HTTPS (Render)
+            sameSite: "None", // ✅ Needed for cross-site cookie usage
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
         res.status(200).json({
@@ -40,12 +41,13 @@ export const login = async (req, res) => {
 export const getUser = async (req, res) => {
     try {
         const token = req.cookies.access_token;
+
         if (!token) {
             return res.status(403).json({ success: false, message: "Unauthorized" });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.userId).select("-__v");  
+        const user = await User.findById(decoded.userId).select("-__v");
 
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
@@ -61,9 +63,8 @@ export const getUser = async (req, res) => {
 export const logout = (req, res) => {
     res.clearCookie("access_token", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "Strict",
+        secure: true,
+        sameSite: "None",
     });
     res.status(200).json({ success: true, message: "Logged out successfully" });
 };
-
