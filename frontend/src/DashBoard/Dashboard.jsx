@@ -16,6 +16,7 @@ const Dashboard = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    Authorization: import.meta.env.VITE_JWT_KEY,
                 })
 
                 if (!apiResponse.ok) {

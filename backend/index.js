@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 
 import AuthRoute from './routes/Auth.route.js';
 import quizRoutes from "./routes/Quiz.route.js";
-
+import quizAttemptRoutes from "./routes/QuizAttempt.route.js";
 dotenv.config();
 
 const app = express();
@@ -24,9 +24,9 @@ app.use(cors({
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
 }));
 
-// Routes
 app.use('/api/auth', AuthRoute);
 app.use("/api/quizzes", quizRoutes);
+app.use("/api/quiz-attempt", quizAttemptRoutes);
 
 // Connect to Database
 if (!process.env.MONGODB_CONN) {

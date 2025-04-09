@@ -30,3 +30,8 @@
     object-fit: cover;
     border-radius: 8px;
 }
+.quiz-score {
+    color: green;
+    font-weight: bold;
+    margin-top: 8px;
+}
