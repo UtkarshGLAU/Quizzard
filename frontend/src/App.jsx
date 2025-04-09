@@ -6,7 +6,7 @@ import NotFound from "./NodeFound/NotFound";
 import Home from "./Home/Home";
 import CreateQuiz from "./CreateQuiz/CreateQuiz";
 import QuizPage from "./QuizPage/QuizPage";
-import PublicRoute from "./components/PublicRoute";
+import PublicRoute from "./Components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
