@@ -7,7 +7,7 @@ import Home from "./Home/Home";
 import CreateQuiz from "./CreateQuiz/CreateQuiz";
 import QuizPage from "./QuizPage/QuizPage";
 import PublicRoute from "./Components/PublicRoute";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 const App = () => {
   return (
