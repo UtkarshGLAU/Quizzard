@@ -1,105 +1,277 @@
-
 .header {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  /* position: relative; */
-  width: 100vw;
-  position: fixed;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
   top: 0;
+  z-index: 100;
+  transition: box-shadow 0.3s ease;
+}
+
+.header:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .header-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  /* max-width: 1100px; */
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  transition: padding 0.3s ease;
 }
 
 .header-logo {
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight: 700;
+  color: #6e8efb;
   cursor: pointer;
+  margin: 0;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.header-logo:hover {
+  color: #a777e3;
+  transform: scale(1.05);
+}
+
+.header-logo::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -5px;
+  left: 0;
+  background: linear-gradient(90deg, #6e8efb, #a777e3);
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}
+
+.header-logo:hover::after {
+  width: 100%;
 }
 
 .header-nav-links {
   display: flex;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .header-nav-links button {
   background: none;
   border: none;
-  color: white;
+  color: #555;
   font-size: 1rem;
   cursor: pointer;
-  width: 50px;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-nav-links button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: #6e8efb;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
 .header-nav-links button:hover {
-  text-decoration: underline;
+  color: #6e8efb;
 }
 
-.header-login-btn {
-  background-color: white;
-  color: #007bff;
-  padding: 8px 15px;
-  border-radius: 5px;
+.header-nav-links button:hover::after {
+  width: 80%;
+}
+
+.header-login-btn,
+.header-logout-btn {
+  background-color: #6e8efb;
+  color: white;
   border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: bold;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-login-btn::after,
+.header-logout-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.header-login-btn:focus:not(:active)::after,
+.header-logout-btn:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
 }
 
 .header-login-btn:hover {
-  background-color: #f0f0f0;
+  background-color: #5d7ce6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(110, 142, 251, 0.4);
 }
 
-/* Mobile menu button */
+.header-login-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.header-logout-btn {
+  background-color: #f8f9fa;
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.header-logout-btn:hover {
+  background-color: #f1f3f5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .header-menu-btn {
   display: none;
-  font-size: 1.8rem;
   background: none;
   border: none;
-  color: white;
+  font-size: 1.5rem;
   cursor: pointer;
+  color: #555;
+  transition: all 0.3s ease;
 }
 
-/* Mobile Menu */
+.header-menu-btn:hover {
+  color: #6e8efb;
+  transform: rotate(90deg);
+}
+
 .header-mobile-menu {
   display: none;
   flex-direction: column;
-  background-color: #0056b3;
-  padding: 15px;
-  position: absolute;
-  top: 60px;
-  width: 100%;
-  left: 0;
+  padding: 0;
+  background-color: white;
+  border-top: 1px solid #eee;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+}
+
+.header-mobile-menu[style*="display: flex"] {
+  max-height: 300px;
+  padding: 1rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .header-mobile-menu button {
   background: none;
   border: none;
-  color: white;
-  padding: 10px;
+  color: #555;
   font-size: 1rem;
-  text-align: left;
   cursor: pointer;
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s ease;
+  transform: translateX(-10px);
+  opacity: 0;
+  animation: slideInRight 0.3s forwards;
+}
+
+@keyframes slideInRight {
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.header-mobile-menu[style*="display: flex"] button:nth-child(1) { animation-delay: 0.1s; }
+.header-mobile-menu[style*="display: flex"] button:nth-child(2) { animation-delay: 0.2s; }
+.header-mobile-menu[style*="display: flex"] button:nth-child(3) { animation-delay: 0.3s; }
+.header-mobile-menu[style*="display: flex"] button:nth-child(4) { animation-delay: 0.4s; }
+
+.header-mobile-menu button:last-child {
+  border-bottom: none;
 }
 
 .header-mobile-menu button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #f8f9fa;
+  padding-left: 1rem;
+  color: #6e8efb;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-  .header-nav-links {
+  .header-container {
+    padding: 0.8rem 1rem;
+  }
+
+  .header-logo {
+    font-size: 1.5rem;
+  }
+
+  .header-nav-links,
+  .header-login-btn,
+  .header-logout-btn {
     display: none;
   }
+
   .header-menu-btn {
     display: block;
   }
+
   .header-mobile-menu {
     display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0.7rem 0.8rem;
+  }
+  
+  .header-logo {
+    font-size: 1.3rem;
+  }
+  
+  .header-menu-btn {
+    font-size: 1.3rem;
+  }
+  
+  .header-mobile-menu button {
+    padding: 0.7rem;
+    font-size: 0.9rem;
   }
 }
