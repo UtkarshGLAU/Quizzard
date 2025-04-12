@@ -1,214 +1,175 @@
-/* Global Reset */
+/* Base styles for the entire application */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+:root {
+  --primary: #6e8efb;
+  --primary-dark: #5d7ce6;
+  --secondary: #a777e3;
+  --text-primary: #333;
+  --text-secondary: #555;
+  --background: #f5f7ff;
+  --card-bg: white;
+  --border-color: #ddd;
+  --animation-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 html {
-    font-family: 'Poppins', sans-serif;
-    scroll-behavior: smooth;
-}
-
-body #root{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-}
-/* App.css — Dark Mode + Animations for Quizzard */
-
-:root {
-  --bg: #111;
-  --card-bg: #1e1e1e;
-  --accent: #00bcd4;
-  --text: #f5f5f5;
-  --muted: #aaa;
-  --radius: 12px;
-  --transition: 0.3s ease;
-  --shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color var(--transition);
-}
-a:hover {
-  color: #03e9f4;
-}
-
-/* Navbar.jsx */
-.navbar {
-  background: #1a1a1a;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: var(--shadow);
-  animation: slideDown 0.8s ease-in-out;
-}
-
-.navbar a {
-  margin-left: 1.5rem;
-  font-weight: bold;
-}
-
-/* Home.jsx */
-.home-container {
-  padding: 2rem;
-  animation: fadeIn 1s ease-in;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* CreateQuiz.jsx & JoinQuiz.jsx */
-.form-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  animation: fadeInUp 0.8s ease;
-}
-
-.form-container h2 {
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-input,
-select {
-  background: #2c2c2c;
-  color: var(--text);
-  padding: 0.75rem;
-  margin: 0.5rem 0;
-  border: 1px solid #444;
-  border-radius: var(--radius);
-  width: 100%;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-
-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 8px var(--accent);
-  outline: none;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease;
 }
 
 button {
-  background: var(--accent);
-  color: #000;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  margin-top: 1rem;
-  border-radius: var(--radius);
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition);
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px var(--accent);
+a {
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* QuizPage.jsx */
-.quiz-container {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
 }
 
-.question-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 2rem;
-  width: 100%;
-  max-width: 800px;
-  margin: 1rem 0;
-  animation: fadeInUp 0.7s ease;
-}
-
-.option-button {
-  background: #2a2a2a;
-  border: 1px solid #333;
-  color: var(--text);
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-  border-radius: var(--radius);
-  width: 100%;
-  transition: background-color var(--transition), transform var(--transition);
-}
-
-.option-button:hover {
-  background: var(--accent);
-  color: #000;
-  transform: translateX(5px);
-}
-
-/* Results.jsx */
-.results-card {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  animation: fadeIn 1s ease;
-  text-align: center;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Mobile responsiveness */
+/* Improve touch targets for mobile */
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+  button,
+  a,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
   }
+}
 
-  .form-container,
-  .question-card,
-  .results-card {
-    padding: 1rem;
+/* Page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s var(--animation-timing);
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s var(--animation-timing);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5d0f6;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6e8efb;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(110, 142, 251, 0.2);
+  color: var(--primary-dark);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Animations for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
   }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  html {
+    font-size: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 90%;
+  }
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Improve form elements on iOS */
+input,
+textarea {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+/* Prevent image drag */
+img {
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
