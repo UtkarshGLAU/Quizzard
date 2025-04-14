@@ -8,6 +8,7 @@ import CreateQuiz from "./CreateQuiz/CreateQuiz";
 import QuizPage from "./QuizPage/QuizPage";
 import PublicRoute from "./Components/PublicRoute";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import QuizLeaderboard from "./LeaderBoard/LeaderBoard";
 
 const App = () => {
   return (
@@ -43,6 +44,8 @@ const App = () => {
         />
 
         <Route path="/quiz/:id" element={<QuizPage />} />
+        <Route path="/leaderboard/:quizId" element={<QuizLeaderboard />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
