@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import "./Leaderboard.css";
+import "./LeaderBoard.css";
 
 const Leaderboard = () => {
   const { quizId } = useParams();
