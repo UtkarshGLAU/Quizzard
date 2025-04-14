@@ -13,7 +13,7 @@ const Leaderboard = () => {
     const fetchLeaderboard = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/quiz-attempt/leaderboard/${quizId}`
+          `${import.meta.env.VITE_API_URL}/quiz-attempt/leaderboard/${quizId}`
         );
         console.log("Leaderboard response:", res.data); // debug
         if (Array.isArray(res.data)) {
