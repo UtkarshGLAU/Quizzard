@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Header.css"; // Import the CSS file
+import "./Header.css";
 import { useAuth } from "../context/AuthContext";
 
 function Header() {
@@ -8,34 +8,39 @@ function Header() {
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleNavigate = (path) => {
+    navigate(path);
+    setIsOpen(false);
+  };
+
+  const handleAuthAction = () => {
+    if (user) {
+      logout();
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+    setIsOpen(false);
+  };
+
   return (
     <header className="header">
       <div className="header-container">
-        <h1 className="header-logo" onClick={() => navigate("/")}>
+        <h1 className="header-logo" onClick={() => handleNavigate("/")}>
           Quizzard
         </h1>
 
         <nav className="header-nav-links">
-          <button onClick={() => navigate("/about")}>About</button>
-          <button onClick={() => navigate("/contact")}>Contact</button>
+          <button onClick={() => handleNavigate("/about")}>About</button>
+          <button onClick={() => handleNavigate("/contact")}>Contact</button>
         </nav>
+
         {user ? (
-          <>
-            <button
-              className="header-logout-btn"
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-            >
-              Logout
-            </button>
-          </>
+          <button className="header-logout-btn" onClick={handleAuthAction}>
+            Logout
+          </button>
         ) : (
-          <button
-            className="header-login-btn"
-            onClick={() => navigate("/login")}
-          >
+          <button className="header-login-btn" onClick={handleAuthAction}>
             Login
           </button>
         )}
@@ -45,19 +50,17 @@ function Header() {
         </button>
       </div>
 
-      {isOpen && (
-        <nav className="header-mobile-menu">
-          <button onClick={() => navigate("/")}>Home</button>
-          <button onClick={() => navigate("/about")}>About</button>
-          <button onClick={() => navigate("/contact")}>Contact</button>
-          <button
-            className="header-login-btn"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </button>
-        </nav>
-      )}
+      {/* Mobile Menu */}
+      <nav className={`header-mobile-menu ${isOpen ? "open" : ""}`}>
+        <button onClick={() => handleNavigate("/about")}>About</button>
+        <button onClick={() => handleNavigate("/contact")}>Contact</button>
+        <button
+          className={`${user ? "header-logout-btn" : "header-login-btn"} mobile-only`}
+          onClick={handleAuthAction}
+        >
+          {user ? "Logout" : "Login"}
+        </button>
+      </nav>
     </header>
   );
 }
