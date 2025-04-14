@@ -47,6 +47,16 @@ function QuizzesList() {
             {getQuizScore(quiz._id) && (
               <p className="quiz-score">Your Score: {getQuizScore(quiz._id)}</p>
             )}
+
+            <button
+              className="leaderboard-button"
+              onClick={(e) => {
+                e.stopPropagation(); 
+                navigate(`/leaderboard/${quiz._id}`);
+              }}
+            >
+              View Leaderboard
+            </button>
           </div>
         ))}
       </div>
