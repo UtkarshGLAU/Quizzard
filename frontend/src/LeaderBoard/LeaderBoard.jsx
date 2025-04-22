@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./LeaderBoard.css";
 
 const Leaderboard = () => {
+  const navigate = useNavigate();
   const { quizId } = useParams();
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,6 +79,7 @@ const Leaderboard = () => {
           No scores available for this quiz yet.
         </div>
       )}
+      <button onClick={() => {navigate("/dashboard")}}>Return To Dashboard</button>
     </div>
   );
 };
