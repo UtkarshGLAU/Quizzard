@@ -13,7 +13,7 @@ function QuizPage() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [secondsLeft, setSecondsLeft] = useState(10);
+  const [secondsLeft, setSecondsLeft] = useState(70);
   const navigate = useNavigate();
 
   useEffect(() => {
