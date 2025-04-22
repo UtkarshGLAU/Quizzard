@@ -59,10 +59,11 @@
 
 .quizzes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   perspective: 1000px;
 }
+
 
 .quiz-card {
   background-color: white;
@@ -184,6 +185,11 @@
   transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(110, 142, 251, 0.2);
 }
+@media (max-width: 992px) {
+  .quizzes-grid {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
 
 @media (max-width: 768px) {
   .quizzes-container {
@@ -197,6 +203,7 @@
 
   .quizzes-grid {
     gap: 1rem;
+    grid-template-columns: 1fr;
   }
 }
 
