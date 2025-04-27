@@ -15,6 +15,8 @@ function QuizPage() {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(600);
   const [shuffleQuestions, setShuffleQuestions] = useState(false); // NEW
+  const [userAnswers, setUserAnswers] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +50,19 @@ function QuizPage() {
   };
 
   const handleNextQuestion = () => {
-    if (selectedAnswer === quiz.questions[currentQuestionIndex].correctAnswer) {
+    const currentQuestion = quiz.questions[currentQuestionIndex];
+
+    setUserAnswers((prevAnswers) => [
+      ...prevAnswers,
+      {
+        question: currentQuestion.question,
+        correctAnswer: currentQuestion.correctAnswer,
+        selectedAnswer: selectedAnswer,
+        isCorrect: selectedAnswer === currentQuestion.correctAnswer,
+      },
+    ]);
+
+    if (selectedAnswer === currentQuestion.correctAnswer) {
       setScore(score + 1);
     }
 
@@ -97,7 +111,6 @@ function QuizPage() {
     submitQuizAttempt();
   }, [quizCompleted]);
 
-
   if (!quiz) return <h2>Loading...</h2>;
 
   return (
@@ -122,7 +135,7 @@ function QuizPage() {
                 onChange={() => setShuffleQuestions(!shuffleQuestions)}
               />
               <label htmlFor="shuffle-questions" className="toggle-label">
-                Shuffle:
+                Shuffle
                 <span className="toggle-slider"></span>
               </label>
             </div>
@@ -142,22 +155,49 @@ function QuizPage() {
         ) : (
           <>
             {quizCompleted ? (
-              <div className="quiz-page-quiz-results">
-                <h2>Quiz Completed!</h2>
-                <p>
-                  Your Score: {score} / {quiz.questions.length}
-                </p>
-                <br />
-                <button
-                  className="quiz-page-btn"
-                  onClick={() => navigate("/dashboard")}
-                >
-                  DashBoard
-                </button>
-              </div>
+              <>
+                <div className="quiz-page-quiz-results">
+                  <h2>Quiz Completed!</h2>
+                  <p>
+                    Your Score: {score} / {quiz.questions.length}
+                  </p>
+                  <br />
+                  <button
+                    className="quiz-page-btn"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    DashBoard
+                  </button>
+                </div>
+                {userAnswers.some((ans) => !ans.isCorrect) && (
+                  <div className="quiz-page-wrong-answers">
+                    <h3>Review Your Mistakes:</h3>
+                    {userAnswers
+                      .filter((ans) => !ans.isCorrect)
+                      .map((ans, index) => (
+                        <div key={index} className="quiz-page-wrong-answer">
+                          <p>
+                            <strong>Question:</strong> {ans.question}
+                          </p>
+                          <p>
+                            <strong>Your Answer:</strong> {ans.selectedAnswer}
+                          </p>
+                          <p>
+                            <strong>Correct Answer:</strong> {ans.correctAnswer}
+                          </p>
+                          <hr />
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </>
             ) : (
               <div className="quiz-page-question-section">
-                <div className="quiz-page-timer">
+                <div
+                  className={`quiz-page-timer ${
+                    secondsLeft < 60 ? "quiz-page-timer-warning" : ""
+                  }`}
+                >
                   ⏳ Time Left: <strong>{formatTime(secondsLeft)}</strong>
                 </div>
                 <h2>Question {currentQuestionIndex + 1}:</h2>
