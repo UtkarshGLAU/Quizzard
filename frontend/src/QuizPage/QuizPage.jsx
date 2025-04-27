@@ -14,6 +14,7 @@ function QuizPage() {
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(600);
+  const [shuffleQuestions, setShuffleQuestions] = useState(false); // NEW
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +25,6 @@ function QuizPage() {
     getQuiz();
   }, [id]);
 
-  // Timer countdown
   useEffect(() => {
     let timer;
     if (quizStarted && !quizCompleted) {
@@ -32,7 +32,7 @@ function QuizPage() {
         setSecondsLeft((prev) => {
           if (prev <= 1) {
             clearInterval(timer);
-            setQuizCompleted(true); // Auto-submit
+            setQuizCompleted(true);
             return 0;
           }
           return prev - 1;
@@ -40,7 +40,7 @@ function QuizPage() {
       }, 1000);
     }
 
-    return () => clearInterval(timer); // Cleanup on unmount or stop
+    return () => clearInterval(timer);
   }, [quizStarted, quizCompleted]);
 
   const handleAnswerClick = (answer) => {
@@ -60,7 +60,17 @@ function QuizPage() {
     }
   };
 
-  // Format seconds to mm:ss
+  const handleStartQuiz = () => {
+    if (shuffleQuestions) {
+      const shuffled = [...quiz.questions].sort(() => Math.random() - 0.5);
+      setQuiz((prev) => ({
+        ...prev,
+        questions: shuffled,
+      }));
+    }
+    setQuizStarted(true);
+  };
+
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60)
       .toString()
@@ -68,7 +78,7 @@ function QuizPage() {
     const secs = (seconds % 60).toString().padStart(2, "0");
     return `${mins}:${secs}`;
   };
-  // Save quiz result to backend
+
   useEffect(() => {
     const submitQuizAttempt = async () => {
       try {
@@ -86,15 +96,6 @@ function QuizPage() {
 
     submitQuizAttempt();
   }, [quizCompleted]);
-  useEffect(() => {
-    if (quizCompleted && quiz) {
-      saveQuizAttempt({
-        quizId: quiz._id,
-        score,
-        totalQuestions: quiz.questions.length,
-      });
-    }
-  }, [quizCompleted]);
 
   if (!quiz) return <h2>Loading...</h2>;
 
@@ -106,12 +107,24 @@ function QuizPage() {
           <>
             <h1>{quiz.title}</h1>
             <p>{quiz.description}</p>
-            <button
-              className="quiz-page-btn"
-              onClick={() => setQuizStarted(true)}
-            >
+
+            <button className="quiz-page-btn" onClick={handleStartQuiz}>
               Start Quiz
             </button>
+            {/* Shuffle toggle */}
+            <div className="quiz-page-shuffle-toggle">
+              <input
+                type="checkbox"
+                id="shuffle-questions"
+                className="toggle-input"
+                checked={shuffleQuestions}
+                onChange={() => setShuffleQuestions(!shuffleQuestions)}
+              />
+              <label htmlFor="shuffle-questions" className="toggle-label">
+                Shuffle:
+                <span className="toggle-slider"></span>
+              </label>
+            </div>
           </>
         ) : (
           <>
