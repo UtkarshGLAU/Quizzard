@@ -97,6 +97,7 @@ function QuizPage() {
     submitQuizAttempt();
   }, [quizCompleted]);
 
+
   if (!quiz) return <h2>Loading...</h2>;
 
   return (
@@ -124,6 +125,18 @@ function QuizPage() {
                 Shuffle:
                 <span className="toggle-slider"></span>
               </label>
+            </div>
+            {/* Timer input */}
+            <div className="quiz-page-timer-input">
+              <label htmlFor="timer">Set Timer (in seconds):</label>
+              <input
+                type="number"
+                id="timer"
+                min="1"
+                max="600"
+                value={secondsLeft}
+                onChange={(e) => setSecondsLeft(e.target.value)}
+              />
             </div>
           </>
         ) : (
