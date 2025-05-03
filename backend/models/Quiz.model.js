@@ -10,7 +10,11 @@ const QuizSchema = new mongoose.Schema({
             options: [String],
             correctAnswer: { type: String, required: true }
         }
-    ]
+    ],
+    hidden: {
+        type: Boolean,
+        default: true // If not present, it's hidden
+    }
 });
 
 const Quiz = mongoose.model("Quiz", QuizSchema);
