@@ -10,9 +10,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const quizzes = await Quiz.find({
-      $or: [{ hidden: false }, { hidden: { $exists: false } }],
-    });
+    const quizzes = await Quiz.find({ hidden: false });
     res.json(quizzes);
   } catch (error) {
     res.status(500).json({ error: "Error fetching quizzes" });
