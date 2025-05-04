@@ -139,6 +139,10 @@ function QuizPage() {
                 <span className="toggle-slider"></span>
               </label>
             </div>
+            {/* Quiz details */}
+            <div className="total-questions">
+              <p>Total Questions: {quiz.questions.length}</p>
+            </div>
             {/* Timer input */}
             <div className="quiz-page-timer-input">
               <label htmlFor="timer">Set Timer (in seconds):</label>
