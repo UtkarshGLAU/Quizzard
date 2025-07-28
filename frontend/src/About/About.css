@@ -1,0 +1,129 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.about-content {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-section {
+  margin-bottom: 2.5rem;
+}
+
+.about-section h1 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.about-section h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.about-section p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.about-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.about-section li {
+  margin-bottom: 1rem;
+  color: #555;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.about-section li:before {
+  content: "•";
+  color: #3498db;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.about-section a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.about-section a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.tech-category {
+  flex: 1;
+  min-width: 250px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tech-category h3 {
+  color: #3498db;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+.about-footer {
+  margin-top: auto;
+  padding: 1.5rem;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .about-section h1 {
+    font-size: 2rem;
+  }
+  
+  .about-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .about-section p, .about-section li {
+    font-size: 1rem;
+  }
+  
+  .tech-stack {
+    flex-direction: column;
+  }
+  
+  .tech-category {
+    margin-bottom: 15px;
+  }
+}

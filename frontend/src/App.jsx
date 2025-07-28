@@ -10,6 +10,7 @@ import PublicRoute from "./Components/PublicRoute";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import QuizLeaderboard from "./LeaderBoard/LeaderBoard";
 import AdminPanel from "./AdminPanel/AdminPanel";
+import About from "./About/About";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const App = () => {
 
         <Route path="/quiz/:id" element={<QuizPage />} />
         <Route path="/leaderboard/:quizId" element={<QuizLeaderboard />} />
+        <Route path="/about" element={<About />} />
         
         {/* Correct the route for AdminPanel */}
         <Route path="/admin" element={<AdminPanel />} />  
