@@ -18,7 +18,7 @@ app.use(cookieParser());
 
 // CORS Configuration
 app.use(cors({
-    origin: ["https://quizzard-frontend.vercel.app", "http://localhost:5173"], // Allow both production and local frontend
+    origin: ["https://quizzard-eta.vercel.app/", "http://localhost:5173"], // Allow both production and local frontend
     credentials: true,  // Allow cookies, authorization headers, etc.
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
