@@ -17,12 +17,35 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS Configuration
+//app.use(cors({
+//    origin: ["https://quizzard-eta.vercel.app", "http://localhost:5173"], // Allow both production and local frontend
+//    credentials: true,  // Allow cookies, authorization headers, etc.
+//    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+//    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
+//}));
+// 1. Get the string from the .env file
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+    ? process.env.ALLOWED_ORIGINS.split(',') 
+    : []; // Fallback to empty array if env is missing
+
 app.use(cors({
-    origin: ["https://quizzard-eta.vercel.app", "http://localhost:5173"], // Allow both production and local frontend
-    credentials: true,  // Allow cookies, authorization headers, etc.
+    // 2. Check if the incoming origin is in our allowed list
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"]
 }));
+
+
 
 app.use('/api/auth', AuthRoute);
 app.use("/api/quizzes", quizRoutes);
