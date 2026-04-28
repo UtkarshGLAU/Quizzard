@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import AuthRoute from './routes/Auth.route.js';
 import quizRoutes from "./routes/Quiz.route.js";
 import quizAttemptRoutes from "./routes/QuizAttempt.route.js";
+import aiQuizRoutes from "./routes/AIQuiz.route.js";
 dotenv.config();
 
 const app = express();
@@ -50,6 +51,7 @@ app.use(cors({
 app.use('/api/auth', AuthRoute);
 app.use("/api/quizzes", quizRoutes);
 app.use("/api/quiz-attempt", quizAttemptRoutes);
+app.use("/api/ai-quizzes", aiQuizRoutes);
 
 // Connect to Database
 if (!process.env.MONGODB_CONN) {

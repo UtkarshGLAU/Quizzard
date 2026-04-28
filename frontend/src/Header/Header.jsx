@@ -31,6 +31,7 @@ function Header() {
         </h1>
 
         <nav className="header-nav-links">
+          <button onClick={() => handleNavigate("/create-ai-quiz")}>✨ AI Quiz Generator</button>
           <button onClick={() => handleNavigate("/about")}>About</button>
           <button onClick={() => handleNavigate("/contact")}>Contact</button>
         </nav>
@@ -52,6 +53,7 @@ function Header() {
 
       {/* Mobile Menu */}
       <nav className={`header-mobile-menu ${isOpen ? "open" : ""}`}>
+        <button onClick={() => handleNavigate("/create-ai-quiz")}>✨ AI Quiz Generator</button>
         <button onClick={() => handleNavigate("/about")}>About</button>
         <button onClick={() => handleNavigate("/contact")}>Contact</button>
         <button
