@@ -11,6 +11,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import QuizLeaderboard from "./LeaderBoard/LeaderBoard";
 import AdminPanel from "./AdminPanel/AdminPanel";
 import About from "./About/About";
+import AIQuizGenerator from './AIQuizGenerator/AIQuizGenerator';
 
 const App = () => {
   return (
@@ -52,6 +53,7 @@ const App = () => {
         {/* Correct the route for AdminPanel */}
         <Route path="/admin" element={<AdminPanel />} />  
 
+        <Route path="/create-ai-quiz" element={<AIQuizGenerator />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -9,11 +9,16 @@ const About = () => {
       <div className="about-content">
         <h1>About Quizzard</h1>
         <div className="about-section">
-          <p>
-            Quizzard is a web application for creating and participating in quizzes.
-            This platform allows users to test their knowledge on various topics and
-            track their progress.
-          </p>
+          <h2>Features</h2>
+          <ul className="features-list">
+            <li><strong>User Authentication:</strong> Secure signup and login functionality</li>
+            <li><strong>Quiz Creation:</strong> Create custom quizzes with multiple question types</li>
+            <li><strong>AI Quiz Generator:</strong> Generate quizzes instantly using Gemini AI - just specify a topic, question count, and difficulty level</li>
+            <li><strong>Quiz Participation:</strong> Take quizzes created by others</li>
+            <li><strong>Progress Tracking:</strong> Monitor performance and view scores</li>
+            <li><strong>Leaderboards:</strong> See where you stand compared to others</li>
+            <li><strong>Admin Panel:</strong> Manage quizzes and users (admin access only)</li>
+          </ul>
         </div>
 
         <div className="about-section">
@@ -52,6 +57,13 @@ const About = () => {
                 <li>Vercel (FrontEnd-Deployment)</li>
                 <li>Render (BackEnd-Deployment)</li>
                 <li>MongoDB Atlas</li>
+              </ul>
+            </div>
+            <div className="tech-category">
+              <h3>AI & ML</h3>
+              <ul>
+                <li>Google Gemini 2.5 Flash API</li>
+                <li>Natural Language Processing</li>
               </ul>
             </div>
           </div>
