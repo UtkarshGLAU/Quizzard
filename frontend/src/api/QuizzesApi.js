@@ -30,14 +30,30 @@ export const createQuiz = async (quizData) => {
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify(quizData),
         });
 
-        if (!response.ok) throw new Error("Failed to create quiz");
+        const data = await response.json();
 
-        return await response.json();
+        if (!response.ok) {
+            return {
+                success: false,
+                message: data.message || "Failed to create quiz",
+                dailyLimit: data.dailyLimit,
+                quizzesCreatedToday: data.quizzesCreatedToday,
+            };
+        }
+
+        return {
+            success: true,
+            ...data,
+        };
     } catch (error) {
         console.error("Error creating quiz:", error);
-        return null;
+        return {
+            success: false,
+            message: error.message || "Error creating quiz",
+        };
     }
 };

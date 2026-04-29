@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { generateQuizPreview, createAIQuiz } from "../api/AIQuizzesApi";
 import "./AIQuizGenerator.css";
 
 const AIQuizGenerator = () => {
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
   const [step, setStep] = useState("form"); // form, preview, success
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -18,6 +20,27 @@ const AIQuizGenerator = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+
+  // Check if user is authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate("/login", { replace: true });
+    }
+  }, [user, authLoading, navigate]);
+
+  if (authLoading) {
+    return (
+      <div className="ai-quiz-generator">
+        <div className="ai-quiz-container">
+          <h1>Loading...</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   // Preview data
   const [preview, setPreview] = useState(null);

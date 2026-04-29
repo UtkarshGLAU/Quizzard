@@ -4,7 +4,7 @@ A web application for creating and participating in quizzes, allowing users to t
 
 ## 🌐 Live Demo
 
-- [FrontEnd](https://quizzard-eta.vercel.app)
+- [FrontEnd](https://quizzard.utkarshsharma.me/)
 
 ## 📋 Table of Contents
 
@@ -19,6 +19,7 @@ A web application for creating and participating in quizzes, allowing users to t
 
 - **User Authentication**: Secure signup and login functionality
 - **Quiz Creation**: Create custom quizzes with multiple question types
+- **AI Quiz Generator**: Generate quizzes instantly using Google Gemini 2.5 Flash API - specify topic, question count, and difficulty level, then customize before creating
 - **Quiz Participation**: Take quizzes created by others
 - **Progress Tracking**: Monitor performance and view scores
 - **Leaderboards**: See where you stand compared to others
@@ -42,6 +43,8 @@ A web application for creating and participating in quizzes, allowing users to t
 - **Git & GitHub**: Version control and code hosting
 - **Vercel**: Frontend deployment platform
 - **MongoDB Atlas**: Cloud database service
+- **Google Gemini 2.5 Flash API**: AI-powered quiz generation
+- **Proxmox**: Self-hosted server infrastructure
 
 ## 📁 Project Structure
 
@@ -119,6 +122,10 @@ npm run dev
 - `GET /api/quizzes` - Get all quizzes
 - `GET /api/quizzes/:id` - Get a specific quiz
 - `POST /api/quizzes` - Create a new quiz (authenticated)
+
+### AI Quiz Generation
+- `POST /api/ai-quizzes/preview` - Generate a quiz preview using Gemini AI (without saving)
+- `POST /api/ai-quizzes` - Generate and save a quiz using Gemini AI
 - `PUT /api/quizzes/:id` - Update a quiz (authenticated)
 - `DELETE /api/quizzes/:id` - Delete a quiz (authenticated)
 

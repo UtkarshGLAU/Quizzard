@@ -14,8 +14,12 @@ const QuizSchema = new mongoose.Schema({
     hidden: {
         type: Boolean,
         default: true // If not present, it's hidden
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
-});
+}, { timestamps: true });
 
 const Quiz = mongoose.model("Quiz", QuizSchema);
 export default Quiz;
