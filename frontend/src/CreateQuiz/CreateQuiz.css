@@ -1,9 +1,128 @@
+.create-quiz-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 1rem;
+}
+
 .create-quiz-container {
-    width: 50%;
-    margin: auto;
-    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    background: white;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+}
+
+.quiz-header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.btn-dashboard {
+    background-color: #6e8efb;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-dashboard:hover {
+    background-color: #5d7ce6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(110, 142, 251, 0.4);
+}
+
+.quiz-subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.error-message {
+    background-color: #fee;
+    border: 1px solid #f88;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #c33;
+    animation: slideDown 0.3s ease-out;
+}
+
+.error-message p {
+    margin: 0;
+    flex: 1;
+}
+
+.error-message button {
+    background: none;
+    border: none;
+    color: #c33;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    margin-left: 10px;
+    width: auto;
+    min-width: auto;
+}
+
+.error-message button:hover {
+    opacity: 0.7;
+}
+
+.success-message {
+    background-color: #efe;
+    border: 1px solid #8f8;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    color: #3c3;
+    animation: slideDown 0.3s ease-out;
+}
+
+.success-message p {
+    margin: 0;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 form {
@@ -12,35 +131,179 @@ form {
 }
 
 label {
-    font-weight: bold;
-    margin-top: 10px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
 }
 
 input, textarea {
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 10px 12px;
+    margin-bottom: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
     width: 100%;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #6e8efb;
+    box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+h2 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid #f0f0f0;
 }
 
 .question-block {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 4px;
+    border: 2px solid #f0f0f0;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
 }
 
-button {
-    background-color: #007bff;
-    color: white;
-    padding: 8px;
+.question-block:hover {
+    border-color: #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.question-block label {
+    margin-top: 0.8rem;
+}
+
+.question-block label:first-child {
+    margin-top: 0;
+}
+
+.quiz-actions {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    margin-top: 10px;
+    transition: all 0.3s ease;
+    flex: 1;
 }
 
-button:hover {
-    background-color: #0056b3;
+.btn-primary {
+    background-color: #6e8efb;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #5d7ce6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(110, 142, 251, 0.4);
+}
+
+.btn-primary:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #e0e0e0;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background-color: #e8e8e8;
+    border-color: #d0d0d0;
+    transform: translateY(-2px);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .create-quiz-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .quiz-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-dashboard {
+        width: 100%;
+        text-align: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-quiz-page {
+        padding: 1rem;
+    }
+
+    .create-quiz-container {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .quiz-header h1 {
+        font-size: 1.5rem;
+    }
+
+    label {
+        font-size: 0.85rem;
+    }
+
+    input, textarea {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+
+    .question-block {
+        padding: 1rem;
+    }
 }

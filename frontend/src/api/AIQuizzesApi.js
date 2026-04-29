@@ -7,6 +7,7 @@ export const generateQuizPreview = async (topic, questionCount, difficulty) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({ topic, questionCount, difficulty }),
     });
 
@@ -27,6 +28,7 @@ export const createAIQuiz = async (topic, questionCount, difficulty, title, desc
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         topic,
         questionCount,
@@ -37,9 +39,14 @@ export const createAIQuiz = async (topic, questionCount, difficulty, title, desc
       }),
     });
 
-    if (!response.ok) throw new Error("Failed to create quiz");
-
     const data = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(data.message || "Failed to create quiz");
+      error.response = data;
+      throw error;
+    }
+
     return data.quiz;
   } catch (error) {
     console.error("Error creating AI quiz:", error);

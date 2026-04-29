@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Quiz from "../models/Quiz.model.js";
+import User from "../models/User.model.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 dotenv.config();
 const router = express.Router();
@@ -44,8 +46,51 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
+    // Check if user is authenticated
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "You must be logged in to create quizzes",
+      });
+    }
+
+    const userId = req.user.userId;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Check daily quiz limit for non-admin users
+    if (!user.isAdmin) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const quizzesTodayCount = await Quiz.countDocuments({
+        createdBy: userId,
+        createdAt: {
+          $gte: today,
+          $lt: tomorrow,
+        },
+      });
+
+      if (quizzesTodayCount >= 2) {
+        return res.status(429).json({
+          success: false,
+          message: "You have reached the daily limit of 2 quizzes. Please try again tomorrow.",
+          dailyLimit: 2,
+          quizzesCreatedToday: quizzesTodayCount,
+        });
+      }
+    }
+
     const { title, description, image, questions, hidden } = req.body;
 
     if (!title || !questions || !questions.length) {
@@ -54,7 +99,14 @@ router.post("/", async (req, res) => {
         .json({ message: "Title and questions are required" });
     }
 
-    const newQuiz = new Quiz({ title, description, image, questions, hidden });
+    const newQuiz = new Quiz({ 
+      title, 
+      description, 
+      image, 
+      questions, 
+      hidden,
+      createdBy: userId 
+    });
     await newQuiz.save();
 
     res
@@ -85,6 +137,24 @@ router.patch("/:id/toggle-hidden", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: "Error updating quiz visibility" });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const quiz = await Quiz.findByIdAndDelete(id);
+    if (!quiz) {
+      return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    res.json({
+      message: "Quiz deleted successfully",
+      quiz,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting quiz" });
   }
 });
 

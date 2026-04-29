@@ -220,6 +220,29 @@
   gap: 10px;
 }
 
+.users-cell {
+  font-weight: 500;
+  flex: 1;
+}
+
+.users-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
 .user-avatar {
   width: 30px;
   height: 30px;
@@ -231,6 +254,7 @@
   font-weight: 600;
   color: #6e8efb;
   font-size: 0.8rem;
+  flex-shrink: 0;
 }
 
 .score-cell {
@@ -286,6 +310,20 @@
   .leaderboard-table td {
     padding: 0.8rem;
   }
+
+  .users-list {
+    gap: 1rem;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .user-name {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -317,5 +355,19 @@
     width: 25px;
     height: 25px;
     font-size: 0.7rem;
+  }
+
+  .users-list {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .user-item {
+    gap: 6px;
+  }
+
+  .user-name {
+    font-size: 0.9rem;
   }
 }

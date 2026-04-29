@@ -7,8 +7,17 @@ export const login = async (req, res) => {
 
         let user = await User.findOne({ email });
 
+        // Check if email is in ADMIN_EMAILS list
+        const adminEmails = process.env.ADMIN_EMAILS ? 
+            process.env.ADMIN_EMAILS.split(',').map(e => e.trim()) : [];
+        const isAdmin = adminEmails.includes(email);
+
         if (!user) {
-            user = new User({ name, email, phoneNumber, avatar });
+            user = new User({ name, email, phoneNumber, avatar, isAdmin });
+            await user.save();
+        } else {
+            // Update isAdmin flag if email list changed
+            user.isAdmin = isAdmin;
             await user.save();
         }
 
@@ -26,10 +35,12 @@ export const login = async (req, res) => {
         res.status(200).json({
             success: true,
             user: {
+                _id: user._id,
                 name: user.name,
                 email: user.email,
                 phoneNumber: user.phoneNumber,
                 avatar: user.avatar,
+                isAdmin: user.isAdmin,
             },
         });
 
@@ -53,7 +64,17 @@ export const getUser = async (req, res) => {
             return res.status(404).json({ success: false, message: "User not found" });
         }
 
-        res.status(200).json({ success: true, user });
+        res.status(200).json({ 
+            success: true, 
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                avatar: user.avatar,
+                isAdmin: user.isAdmin
+            }
+        });
 
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });

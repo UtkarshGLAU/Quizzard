@@ -33,6 +33,51 @@ const Leaderboard = () => {
     fetchLeaderboard();
   }, [quizId]);
 
+  // Group scores by score value and assign proper ranks
+  const getGroupedScores = () => {
+    if (scores.length === 0) return [];
+    
+    const grouped = {};
+    scores.forEach((entry) => {
+      const scoreValue = entry.score;
+      if (!grouped[scoreValue]) {
+        grouped[scoreValue] = [];
+      }
+      grouped[scoreValue].push(entry);
+    });
+
+    const sortedGroups = Object.keys(grouped)
+      .map(Number)
+      .sort((a, b) => b - a);
+
+    const result = [];
+    let currentRank = 1;
+
+    sortedGroups.forEach((scoreValue) => {
+      const group = grouped[scoreValue];
+      
+      // Sort users alphabetically within the group
+      const sortedUsers = group.sort((a, b) => {
+        const nameA = (a.username || a.user?.username || "Unknown").toUpperCase();
+        const nameB = (b.username || b.user?.username || "Unknown").toUpperCase();
+        return nameA.localeCompare(nameB);
+      });
+
+      result.push({
+        rank: currentRank,
+        score: scoreValue,
+        users: sortedUsers,
+      });
+      
+      // Increment by 1 for dense ranking (not by group length)
+      currentRank += 1;
+    });
+
+    return result;
+  };
+
+  const groupedScores = getGroupedScores();
+
   if (loading)
     return <div className="loading-container">Loading leaderboard</div>;
 
@@ -42,34 +87,42 @@ const Leaderboard = () => {
         <span className="trophy">🏆</span> Leaderboard
       </h2>
 
-      {scores.length > 0 ? (
+      {groupedScores.length > 0 ? (
         <table className="leaderboard-table">
           <thead>
             <tr>
               <th>Rank</th>
-              <th>User</th>
+              <th>Users</th>
               <th>Score</th>
             </tr>
           </thead>
           <tbody>
-            {scores.map((entry, index) => (
+            {groupedScores.map((group, index) => (
               <tr key={index}>
                 <td
                   className={`rank-cell ${
-                    index < 3 ? `rank-${index + 1}` : ""
+                    group.rank < 4 ? `rank-${group.rank}` : ""
                   }`}
                 >
-                  {index + 1}
+                  {group.rank}
                 </td>
-                <td className="user-cell">
-                  <div className="user-avatar">
-                    {(entry.username || entry.user?.username || "?")
-                      .charAt(0)
-                      .toUpperCase()}
+                <td className="users-cell">
+                  <div className="users-list">
+                    {group.users.map((entry, userIndex) => (
+                      <div key={userIndex} className="user-item">
+                        <div className="user-avatar">
+                          {(entry.username || entry.user?.username || "?")
+                            .charAt(0)
+                            .toUpperCase()}
+                        </div>
+                        <span className="user-name">
+                          {entry.username || entry.user?.username || "Unknown"}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                  {entry.username || entry.user?.username || "Unknown"}
                 </td>
-                <td className="score-cell">{entry.score}</td>
+                <td className="score-cell">{group.score}</td>
               </tr>
             ))}
           </tbody>
