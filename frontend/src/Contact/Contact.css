@@ -133,31 +133,25 @@
   font-style: italic;
 }
 
-.personal-portfolio {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.8rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  border-radius: 12px;
-  border: 2px solid transparent;
-  gap: 0.8rem;
-  opacity: 0.7;
-  cursor: not-allowed;
+.personal-portfolio-link:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.personal-portfolio-link:hover .label,
+.personal-portfolio-link:hover .placeholder {
+  color: white;
 }
 
-.personal-portfolio .icon {
+.personal-portfolio-link .icon {
   font-size: 2.5rem;
 }
 
-.personal-portfolio .label {
+.personal-portfolio-link .label {
   font-size: 1.1rem;
   font-weight: 600;
   color: #333;
 }
 
-.personal-portfolio .placeholder {
+.personal-portfolio-link .placeholder {
   font-size: 0.8rem;
   color: #999;
   font-style: italic;
