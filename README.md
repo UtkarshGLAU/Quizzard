@@ -12,6 +12,7 @@ A web application for creating and participating in quizzes, allowing users to t
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
+- [Docker & Deployment](#docker--deployment)
 - [API Endpoints](#api-endpoints)
 - [Contributing](#contributing)
 
@@ -75,7 +76,11 @@ quizzard/
 - npm or yarn
 - MongoDB instance (local or Atlas)
 
-### Installation
+### Installation Options
+
+#### Option 1: Local Development
+
+Follow the installation steps below to run locally.
 
 #### Backend Setup
 ```bash
@@ -111,7 +116,55 @@ npm install
 npm run dev
 ```
 
-## 📡 API Endpoints
+#### Option 2: Docker & Coolify (Production)
+
+For deploying on Proxmox using Coolify:
+
+```bash
+# See detailed guide in DOCKER_DEPLOYMENT.md
+# Quick start with docker-compose for testing:
+docker-compose up --build
+```
+
+See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for complete Docker and Coolify setup instructions.
+
+## � Docker & Deployment
+
+This project includes production-ready Docker configurations for deploying on Coolify (Proxmox).
+
+### Quick Start with Docker Compose
+
+```bash
+# Clone and setup environment
+cp .env.docker.example .env
+# Edit .env with your configuration
+
+# Build and run all services
+docker-compose up --build
+
+# Access the application
+# Frontend: http://localhost
+# Backend API: http://localhost:5000
+# MongoDB: localhost:27017
+```
+
+### Separate Container Deployment on Coolify
+
+Build backend and frontend as separate containers:
+
+```bash
+# Backend
+docker build -t quizzard-backend:latest ./backend
+
+# Frontend
+docker build -t quizzard-frontend:latest ./frontend
+```
+
+Then deploy each separately in Coolify with appropriate environment variables.
+
+**[See full deployment guide →](DOCKER_DEPLOYMENT.md)**
+
+## �📡 API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register a new user

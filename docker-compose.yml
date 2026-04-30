@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: quizzard-backend
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongo:27017/quizzard}
+      - JWT_SECRET=${JWT_SECRET}
+      - ADMIN_EMAILS=${ADMIN_EMAILS}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - PORT=5000
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/api', (r) => {if (r.statusCode !== 404) throw new Error(r.statusCode)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - quizzard-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: quizzard-frontend
+    environment:
+      - VITE_API_URL=http://backend:5000/api
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - quizzard-network
+
+  mongo:
+    image: mongo:6-alpine
+    container_name: quizzard-mongo
+    environment:
+      - MONGO_INITDB_DATABASE=quizzard
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - quizzard-network
+
+volumes:
+  mongo_data:
+
+networks:
+  quizzard-network:
+    driver: bridge
