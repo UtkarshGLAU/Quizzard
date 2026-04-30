@@ -1,0 +1,52 @@
+name: Build and Push Frontend Image
+
+on:
+  push:
+    branches:
+      - main
+    # This ensures it only builds when you change frontend code
+    paths:
+      - 'frontend/**' 
+
+env:
+  REGISTRY: ghcr.io
+  # GitHub requires package names to be fully lowercase
+  IMAGE_NAME: utkarshglau/quizzard-frontend 
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # Required to push to GitHub Container Registry
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }} # GitHub provides this automatically
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: type=raw,value=latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
+            VITE_FIREBASE_APIKEY=${{ secrets.VITE_FIREBASE_APIKEY }}
+            VITE_JWT_KEY=${{ secrets.VITE_JWT_KEY }}
