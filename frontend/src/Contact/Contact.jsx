@@ -36,11 +36,11 @@ const Contact = () => {
                 <span className="placeholder">Utkarsh Sharma</span>
               </a>
 
-              <div className="contact-link personal-portfolio">
+              <a href="https://utkarshsharma.me" target="_blank" rel="noopener noreferrer" className="contact-link personal-portfolio-link">
                 <span className="icon">🌐</span>
                 <span className="label">Personal Portfolio</span>
-                <span className="placeholder">(Coming Soon!)</span>
-              </div>
+                <span className="placeholder">Website</span>
+              </a>
             </div>
           </div>
 
