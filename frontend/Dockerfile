@@ -11,7 +11,14 @@ RUN npm install --no-audit --no-fund --maxsockets=1
 
 # Copy source code
 COPY . .
+# ... (after COPY . .)
+ARG VITE_FIREBASE_APIKEY
+ENV VITE_FIREBASE_APIKEY=$VITE_FIREBASE_APIKEY
 
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
+RUN npm run build
 # Build the application
 RUN npm run build
 
