@@ -39,16 +39,15 @@ RUN echo 'server { \
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Create non-root user for security
-RUN addgroup -g 101 -S nginx_user && \
-    adduser -S nginx_user -u 101 && \
-    chown -R nginx_user:nginx_user /usr/share/nginx/html && \
-    chown -R nginx_user:nginx_user /var/cache/nginx && \
-    chown -R nginx_user:nginx_user /var/log/nginx && \
-    chown -R nginx_user:nginx_user /etc/nginx/conf.d && \
+# Give the built-in nginx user permissions to necessary folders
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /etc/nginx/conf.d && \
     touch /var/run/nginx.pid && \
-    chown -R nginx_user:nginx_user /var/run/nginx.pid
+    chown -R nginx:nginx /var/run/nginx.pid
 
-USER nginx_user
+USER nginx
 
 # Expose port
 EXPOSE 80
