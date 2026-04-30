@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --no-audit --no-fund --maxsockets=1
 
 # Copy source code
 COPY . .
