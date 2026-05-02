@@ -4,7 +4,7 @@ A web application for creating and participating in quizzes, allowing users to t
 
 ## 🌐 Live Demo
 
-- [FrontEnd](https://quizzard.utkarshsharma.me/)
+- [FrontEnd](https://quizzard.iamutkarsh.dev/)
 
 ## 📋 Table of Contents
 

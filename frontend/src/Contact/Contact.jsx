@@ -36,7 +36,7 @@ const Contact = () => {
                 <span className="placeholder">Utkarsh Sharma</span>
               </a>
 
-              <a href="https://utkarshsharma.me" target="_blank" rel="noopener noreferrer" className="contact-link personal-portfolio-link">
+              <a href="https://iamutkarsh.dev" target="_blank" rel="noopener noreferrer" className="contact-link personal-portfolio-link">
                 <span className="icon">🌐</span>
                 <span className="label">Personal Portfolio</span>
                 <span className="placeholder">Website</span>
