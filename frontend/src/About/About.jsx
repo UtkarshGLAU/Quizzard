@@ -25,7 +25,7 @@ const About = () => {
           <h2>Project Information</h2>
           <p>
             Quizzard is a personal project developed by Utkarsh Sharma. 
-            You can find the source code on <a href="https://github.com/UtkarshGLAU/Quizzard" target="_blank" rel="noopener noreferrer">GitHub</a>.
+            You can find the source code on <a href="https://github.com/UtkarshSharma980/Quizzard" target="_blank" rel="noopener noreferrer">GitHub</a>.
           </p>
         </div>
 

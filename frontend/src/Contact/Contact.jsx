@@ -24,10 +24,10 @@ const Contact = () => {
             </p>
 
             <div className="links-grid">
-              <a href="https://github.com/UtkarshGLAU" target="_blank" rel="noopener noreferrer" className="contact-link github-link">
+              <a href="https://github.com/UtkarshSharma980" target="_blank" rel="noopener noreferrer" className="contact-link github-link">
                 <span className="icon">🐙</span>
                 <span className="label">GitHub</span>
-                <span className="placeholder">UtkarshGLAU</span>
+                <span className="placeholder">UtkarshSharma980</span>
               </a>
 
               <a href="https://www.linkedin.com/in/utkarsh-sharma-8395a0315/" target="_blank" rel="noopener noreferrer" className="contact-link linkedin-link">
