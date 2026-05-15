@@ -11,7 +11,7 @@ on:
 env:
   REGISTRY: ghcr.io
   # GitHub requires package names to be fully lowercase
-  IMAGE_NAME: utkarshglau/quizzard-frontend 
+  IMAGE_NAME: utkarshsharma980/quizzard-frontend 
 
 jobs:
   build-and-push:
